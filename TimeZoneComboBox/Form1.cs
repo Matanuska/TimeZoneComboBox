@@ -19,29 +19,34 @@ namespace TimeZoneComboBox
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            timeZoneCombo1.TimeZoneChanged += TimeZoneCombo1_TimeZoneChanged;
+            
+        }
 
+        private void TimeZoneCombo1_TimeZoneChanged(object sender, TimeZoneChangedEventArgs e)
+        {
+            MessageBox.Show(e.NewTimeZone.DisplayName);
+        }
 
-           // timeZoneCombo1.TimeZone = TimeZoneInfo.Local.Id.ToString();
-
+        private void timeZoneCombo_TimeZoneChanged(object sender, EventArgs e)
+        {
+         
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(timeZoneCombo1.TimeZone);
+            MessageBox.Show(timeZoneCombo1.TimeZone.Id);
             
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {
-            //timeZoneCombo1.changeTimeZone("Alaskan Standard Time");
-            timeZoneCombo1.TimeZone = "Alaskan Standard Time";
-
-
+        {                     
+            timeZoneCombo1.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(("Alaskan Standard Time"));
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            timeZoneCombo1.TimeZone = TimeZoneInfo.Local.Id.ToString();
+            timeZoneCombo1.TimeZone = TimeZoneInfo.Local;
         }
     }
 }

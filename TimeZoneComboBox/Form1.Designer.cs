@@ -69,8 +69,7 @@
             this.timeZoneCombo1.Location = new System.Drawing.Point(44, 29);
             this.timeZoneCombo1.Name = "timeZoneCombo1";
             this.timeZoneCombo1.Size = new System.Drawing.Size(386, 26);
-            this.timeZoneCombo1.TabIndex = 0;
-            this.timeZoneCombo1.TimeZone = "Romance Standard Time";
+            this.timeZoneCombo1.TabIndex = 0;            
             // 
             // Form1
             // 

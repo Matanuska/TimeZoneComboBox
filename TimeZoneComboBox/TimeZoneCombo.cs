@@ -12,7 +12,9 @@ namespace TimeZoneComboBox
 {
     public partial class TimeZoneCombo : UserControl
     {
-        
+
+        public event EventHandler<TimeZoneChangedEventArgs> TimeZoneChanged;
+
         public TimeZoneCombo()
         {
             InitializeComponent();
@@ -29,22 +31,44 @@ namespace TimeZoneComboBox
             
         }
 
-        public string TimeZone { 
+        public TimeZoneInfo TimeZone { 
             get {
-                return (lstTimezones.SelectedValue != null) ? lstTimezones.SelectedValue.ToString() : null ;                
+                return (lstTimezones.SelectedValue != null) ? (TimeZoneInfo)lstTimezones.SelectedItem : null ;                
+                
             }
             set
             {
                 if (value != null)
                 {
-                    lstTimezones.SelectedValue = value;
+                    lstTimezones.SelectedValue = value.Id;
                 }
             }
         }
 
+
+        TimeZoneInfo initTZ;
         private void lstTimezones_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (initTZ != (TimeZoneInfo)lstTimezones.SelectedItem)
+            {
+                TimeZoneChangedEventArgs args = new TimeZoneChangedEventArgs();
+                args.NewTimeZone = (TimeZoneInfo)lstTimezones.SelectedItem;
 
+                EventHandler<TimeZoneChangedEventArgs> handler = TimeZoneChanged;
+                if (handler != null)
+                {
+                    handler(this, args);
+                }
+
+                initTZ = (TimeZoneInfo)lstTimezones.SelectedItem;
+            }
         }
+
+    }
+
+    public class TimeZoneChangedEventArgs : EventArgs
+    {
+        public TimeZoneInfo NewTimeZone { get; set; }
+        
     }
 }
